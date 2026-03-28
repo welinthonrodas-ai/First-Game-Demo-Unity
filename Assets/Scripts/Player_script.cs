@@ -42,7 +42,7 @@ public class Player_script : MonoBehaviour
 
         float Magnitud = Mathf.Clamp01(Direction.magnitude);
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.C))
         {
             Magnitud /= 0.5f;
             Velocidad = 4;
