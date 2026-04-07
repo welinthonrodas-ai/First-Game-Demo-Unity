@@ -19,6 +19,14 @@ public class Player_script : MonoBehaviour
 
     public Animator AnimatorGame;
 
+    public GameObject Linterna;
+    public GameObject Linterna2;
+    public GameObject Tempo;
+    public bool ActivarLinterna;
+    public bool DesactivarLinterna;
+
+    public int Baterias;
+
     void Start()
     {
         AnimatorGame = GetComponentInChildren<Animator>();   
@@ -28,6 +36,34 @@ public class Player_script : MonoBehaviour
     void Update()
     {
         Movement();
+
+       
+
+
+        if (DesactivarLinterna == true && Input.GetKey(KeyCode.V))
+        {
+            Linterna.SetActive(false);
+            Linterna2.SetActive(false);
+            Tempo.SetActive(false);
+            ActivarLinterna = true;
+            DesactivarLinterna = false;
+            
+          
+            
+        }
+
+        if (ActivarLinterna == true && Input.GetKey(KeyCode.V)) 
+        {
+            Linterna.SetActive(true);
+            Linterna2.SetActive(true);
+            Tempo.SetActive(true);
+            ActivarLinterna = false;
+            DesactivarLinterna = true;
+
+            
+        }
+     
+
 
     }
 
@@ -81,4 +117,19 @@ public class Player_script : MonoBehaviour
         Controller.Move(Velocity * Time.deltaTime);
 
     }
+
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Bateria")
+        {
+            
+            Baterias = Baterias + 1;
+            Destroy(collision.transform.gameObject, 1f);
+        }
+        
+    }
+
+
+
 }
