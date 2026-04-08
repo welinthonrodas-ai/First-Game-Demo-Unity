@@ -24,7 +24,8 @@ public class Temporizador : MonoBehaviour
     public void Temp()
 
     {
-
+        
+        
         TiempoMaximo = TiempoMaximo - Time.deltaTime;
 
         if(TiempoMaximo <= 0)
@@ -36,6 +37,12 @@ public class Temporizador : MonoBehaviour
 
 
 
+    }
+
+    public void AgregarTiempo(float Cantidad)
+    {
+
+        TiempoMaximo += Cantidad;
 
     }
 }
