@@ -18,6 +18,9 @@ public class Player_script : MonoBehaviour
     public Vector3 Velocity;
     public float Gravedad = -9.81f;
 
+
+    public float Vida;
+
     public Animator AnimatorGame;
 
     public GameObject Linterna;
@@ -111,6 +114,12 @@ public class Player_script : MonoBehaviour
         { 
 
             Baterias = Baterias + 1;
+            Destroy(collision.transform.gameObject);
+        }
+
+        if(collision.transform.tag == "Cura")
+        {
+            Vida = 12;
             Destroy(collision.transform.gameObject);
         }
         

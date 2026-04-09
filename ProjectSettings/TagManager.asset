@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bateria
   - Tiempo
+  - Cura
   layers:
   - Default
   - TransparentFX
