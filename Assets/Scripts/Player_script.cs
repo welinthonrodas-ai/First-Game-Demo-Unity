@@ -1,10 +1,12 @@
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player_script : MonoBehaviour
 {
 
+    public static Player_script Instance;
 
     public float Horizontal;
     public float Vertical;
@@ -29,9 +31,16 @@ public class Player_script : MonoBehaviour
     public bool ActivarLinterna;
     public bool DesactivarLinterna;
     public Temporizador Temporizador;
+
+    public GameObject Handgun;
     
 
     public int Baterias;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -51,8 +60,8 @@ public class Player_script : MonoBehaviour
             Linterna2.SetActive(!Linterna2.activeSelf);
             Tempo.SetActive(!Tempo.activeSelf);
         }
-     
 
+        
 
     }
 
@@ -108,6 +117,9 @@ public class Player_script : MonoBehaviour
     }
 
 
+
+
+
     public void OnCollisionEnter(Collision collision)
     {
         if(collision.transform.tag == "Bateria")
@@ -117,22 +129,55 @@ public class Player_script : MonoBehaviour
             Destroy(collision.transform.gameObject);
         }
 
-        if(collision.transform.tag == "Cura")
-        {
-            Vida = 12;
-            Destroy(collision.transform.gameObject);
-        }
         
     }
 
     public void OnTriggerEnter(Collider other)
     {
+
         if(other.CompareTag ("Tiempo"))
         {
             Temporizador.AgregarTiempo(180f);
             Destroy(other.gameObject);
         }
+
+
+        if(other.transform.tag == "Mordida")
+        {
+            AnimatorGame.SetBool("Dano", true);
+
+        }
+       
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.transform.tag == "Mordida")
+        {
+            AnimatorGame.SetBool("Dano", false);
+        }
     }
 
 
+
+    public void Curar(float valor)
+    {
+        Vida = Vida + valor;
+    }
+
+    public void ActivaArma()
+    {
+       if(Input.GetKey(KeyCode.O))
+        {
+            AnimatorGame.SetBool("Pistol", true);
+            Handgun.SetActive(true);
+        }
+        else
+        {
+            AnimatorGame.SetBool("Pistol", false);
+            Handgun.SetActive(true);
+        }
+    }
+
+    
 }
