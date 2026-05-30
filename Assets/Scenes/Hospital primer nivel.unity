@@ -9994,6 +9994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 530264575}
+  - component: {fileID: 530264576}
   m_Layer: 0
   m_Name: ManagerUI
   m_TagString: Untagged
@@ -10016,6 +10017,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &530264576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530264574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cdeca0fa182aea4a81c7355190b32a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &532737476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10625,7 +10638,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cerrar
+  m_Text: O Cerrar
 --- !u!222 &549591990
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14006,6 +14019,9 @@ MonoBehaviour:
   DesactivarLinterna: 0
   Temporizador: {fileID: 645784436}
   Handgun: {fileID: 966978327}
+  Inventario: {fileID: 1711330162}
+  InventarioAbierto: 0
+  VelocidadMouse: 500
   Baterias: 0
 --- !u!143 &750489722
 CharacterController:
@@ -17662,7 +17678,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 258, y: -507}
-  m_SizeDelta: {x: 122.6066, y: 30.454}
+  m_SizeDelta: {x: 102.7441, y: 30.454}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &951172561
 MonoBehaviour:
@@ -28412,7 +28428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1711330163
 RectTransform:
   m_ObjectHideFlags: 0

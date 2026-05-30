@@ -25,6 +25,7 @@ public class ControlItem : MonoBehaviour
         {
             case Item.ItemType.Medicina:
                 Player_script.Instance.Curar(item.Valor);
+                BorrarItem();
                 break;
 
             case Item.ItemType.Arma:
@@ -33,8 +34,10 @@ public class ControlItem : MonoBehaviour
 
         }
 
-        BorrarItem();
+        
     }
+
+   
 
     
     

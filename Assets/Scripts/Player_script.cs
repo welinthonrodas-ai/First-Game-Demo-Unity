@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class Player_script : MonoBehaviour
 {
@@ -33,6 +34,11 @@ public class Player_script : MonoBehaviour
     public Temporizador Temporizador;
 
     public GameObject Handgun;
+
+    public GameObject Inventario;
+    public bool InventarioAbierto;
+
+    public float VelocidadMouse = 500f;
     
 
     public int Baterias;
@@ -51,10 +57,10 @@ public class Player_script : MonoBehaviour
     void Update()
     {
         Movement();
+        Botones();
 
 
-
-        if(Input.GetKeyDown(KeyCode.V))
+        if(Gamepad.current.buttonWest.isPressed)
         {
             Linterna.SetActive(!Linterna.activeSelf);
             Linterna2.SetActive(!Linterna2.activeSelf);
@@ -62,6 +68,8 @@ public class Player_script : MonoBehaviour
         }
 
         
+
+
 
     }
 
@@ -76,7 +84,7 @@ public class Player_script : MonoBehaviour
 
         float Magnitud = Mathf.Clamp01(Direction.magnitude);
 
-        if (Input.GetKey(KeyCode.C))
+        if (Gamepad.current.leftStickButton.isPressed)
         {
             Magnitud /= 0.5f;
             Velocidad = 4;
@@ -88,14 +96,14 @@ public class Player_script : MonoBehaviour
 
         AnimatorGame.SetFloat("InputMagnitud", Magnitud, 0.1f, Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.X))
+        /*if (Input.GetKey(KeyCode.X))
         {
             AnimatorGame.SetBool("Crouch", true);
         }
         else
         {
             AnimatorGame.SetBool("Crouch", false);
-        }
+        }*/
 
 
         if (Direction.magnitude >= 0.1f)
@@ -167,17 +175,74 @@ public class Player_script : MonoBehaviour
 
     public void ActivaArma()
     {
-       if(Input.GetKey(KeyCode.O))
-        {
-            AnimatorGame.SetBool("Pistol", true);
-            Handgun.SetActive(true);
-        }
-        else
+       
+        AnimatorGame.SetBool("Pistol", true);
+        Handgun.SetActive(true);
+
+
+        
+        /*else
         {
             AnimatorGame.SetBool("Pistol", false);
             Handgun.SetActive(true);
-        }
+        }*/
+
+
+
     }
 
+    public void Botones()
+    {
+        if (Gamepad.current.buttonNorth.isPressed && InventarioAbierto == false)
+        {
+            Inventario.SetActive(true);
+            InventarioAbierto = true;
+        }
+
+        if (Gamepad.current.buttonEast.isPressed && InventarioAbierto == true)
+        {
+            Inventario.SetActive(false);
+            InventarioAbierto = false;
+        }
+
+
+        if (Gamepad.current.buttonEast.isPressed && InventarioAbierto == false)
+        {
+            AnimatorGame.SetBool("Crouch", true);
+        }
+        else
+        {
+            AnimatorGame.SetBool("Crouch", false);
+        }
+
+
+
+            Vector2 inputJoystick = Gamepad.current.rightStick.ReadValue();
+
+        if (inputJoystick.magnitude > 0.05f)
+        {
+            Vector2 posicionActualMouse = Mouse.current.position.ReadValue();
+
+            // Calcular la nueva posición sumando el movimiento del joystick
+            Vector2 nuevaPosicion = posicionActualMouse + (inputJoystick * VelocidadMouse * Time.deltaTime);
+
+            // Evitar que el mouse se salga de los límites de la pantalla del juego
+            nuevaPosicion.x = Mathf.Clamp(nuevaPosicion.x, 0, Screen.width);
+            nuevaPosicion.y = Mathf.Clamp(nuevaPosicion.y, 0, Screen.height);
+
+            // Mover físicamente el cursor del mouse en el sistema operativo
+            Mouse.current.WarpCursorPosition(nuevaPosicion);
+        }
+
+        /*if (Gamepad.current.rightTrigger.wasPressedThisFrame)
+        {
+         logica para disparar o seleccionar
+        }*/
+
+
+    }
+
+
+    
     
 }
