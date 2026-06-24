@@ -37,6 +37,7 @@ public class Player_script : MonoBehaviour
 
     public GameObject Inventario;
     public bool InventarioAbierto;
+    public bool InventarioCerrado;
 
     public float VelocidadMouse = 500f;
     
@@ -150,17 +151,37 @@ public class Player_script : MonoBehaviour
         }
 
 
-        if(other.transform.tag == "Mordida")
+        if(other.transform.tag == "Golpe")
         {
             AnimatorGame.SetBool("Dano", true);
+            Vida = Vida - 4;
 
+            if (Vida <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
-       
+
+        if (other.transform.tag == "Mordida")
+        {
+            AnimatorGame.SetBool("Dano", true);
+            Vida = Vida - 6;
+            if (Vida <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 
     public void OnTriggerExit(Collider other)
     {
         if(other.transform.tag == "Mordida")
+        {
+            AnimatorGame.SetBool("Dano", false);
+        }
+
+        if (other.transform.tag == "Golpe")
         {
             AnimatorGame.SetBool("Dano", false);
         }
@@ -203,10 +224,12 @@ public class Player_script : MonoBehaviour
         {
             Inventario.SetActive(false);
             InventarioAbierto = false;
+            InventarioCerrado = true;
+
+            
         }
 
-
-        if (Gamepad.current.buttonEast.isPressed && InventarioAbierto == false)
+        if (Gamepad.current.buttonEast.isPressed && InventarioCerrado == true)
         {
             AnimatorGame.SetBool("Crouch", true);
         }
@@ -217,7 +240,9 @@ public class Player_script : MonoBehaviour
 
 
 
-            Vector2 inputJoystick = Gamepad.current.rightStick.ReadValue();
+
+
+        Vector2 inputJoystick = Gamepad.current.rightStick.ReadValue();
 
         if (inputJoystick.magnitude > 0.05f)
         {

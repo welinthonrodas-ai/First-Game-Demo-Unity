@@ -8,6 +8,8 @@ TagManager:
   - Tiempo
   - Cura
   - Mordida
+  - PuertaMorgue
+  - Golpe
   layers:
   - Default
   - TransparentFX
